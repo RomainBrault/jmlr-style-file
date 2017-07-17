@@ -1,25 +1,27 @@
 %
 % File:    Macros for Journal of Machine Learning Research
-%      Very minor modification of macros for Journal of Artificial 
-%      Intelligence Research (jair.sty) 
+%      Very minor modification of macros for Journal of Artificial
+%      Intelligence Research (jair.sty)
 %
-% Suggestions: Submit an issue or pull request to 
+% Suggestions: Submit an issue or pull request to
 %   https://github.com/JournalMLR/jmlr-style-file
 %
 %   Last edited October 9, 2000 by Leslie Pack Kaelbling
 %   Last edited January 23, 2001 by Alex J. Smola (we should set up RCS or CVS)
 %   Last edited March 29, 2004 Erik G. Learned-Miller
-%   Last edited January 17, 2016 Charles Sutton 
-%   Last edited January 9, 2017 Charles Sutton 
+%   Last edited January 17, 2016 Charles Sutton
+%   Last edited January 9, 2017 Charles Sutton
 %    (We have now set up GIT, good thing that we waited for it to
 %     be invented.)
+%   Last edited July 17, 2017 Romain Brault
 %
 %          The name of this file should follow the article document
 %          type, e.g. \documentstyle[jmlr]{article}
 
 %          Copied and edited from similar file for Machine Learning Journal.
 % Original Author:  Jeff Schlimmer
-% Edited by: Kevin Thompson, Martha Del Alto, Helen Stewart, Steve Minton \& Pandu Nayak.
+% Edited by: Kevin Thompson, Martha Del Alto, Helen Stewart, Steve Minton,
+%            Pandu Nayak \& Romain Brault.
 % Last edited: Mon  May  3 20:40:00 1993 by kthompso (Kevin Thompson) on muir
 
 \typeout{Document Style `jmlr' -- January 2016.}
@@ -34,11 +36,14 @@
 \DeclareOption*{\PackageWarning{jmlr}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                             REQUIRED PACKAGES
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \RequirePackage{epsfig}
+\RequirePackage{amsmath}
+\RequirePackage[thmmarks,amsmath,amsthm,thref]{ntheorem}
+
 \RequirePackage{amssymb}
 \RequirePackage{natbib}
 \RequirePackage{graphicx}
@@ -54,11 +59,11 @@
 \fi
 
 \bibpunct{(}{)}{;}{a}{,}{,}
- 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                             P A G E   S I Z E
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Change the overall width of the page.  If these parameters are
 %       changed, they will require corresponding changes in the
 %       maketitle section.
@@ -68,8 +73,8 @@
 
 % Specify the dimensions of each page
 
-\oddsidemargin .25in    %   Note \oddsidemargin = \evensidemargin
-\evensidemargin .25in
+\oddsidemargin 0.25in    %   Note \oddsidemargin = \evensidemargin
+\evensidemargin 0.25in
 \marginparwidth 0.07 true in
 %\marginparwidth 0.75 true in
 %\topmargin 0 true pt           % Nominal distance from top of page to top of
@@ -82,9 +87,9 @@
 \clubpenalty=10000
 \@twosidetrue \@mparswitchtrue \def\ds@draft{\overfullrule 5pt}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                               S E C T I O N S
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Definitions for nicer (?) sections, etc., ideas from Pat Langley.
 % Numbering for sections, etc. is taken care of automatically.
@@ -118,10 +123,10 @@
      \@xsect{#5}}
 
 \def\@sect#1#2#3#4#5#6[#7]#8{\ifnum #2>\c@secnumdepth
-     \def\@svsec{}\else 
+     \def\@svsec{}\else
      \refstepcounter{#1}\edef\@svsec{\csname the#1\endcsname\hskip 0.5em }\fi
      \@tempskipa #5\relax
-      \ifdim \@tempskipa>\z@ 
+      \ifdim \@tempskipa>\z@
         \begingroup #6\relax
           \@hangfrom{\hskip #3\relax\@svsec}{\interlinepenalty \@M #8\par}
         \endgroup
@@ -158,13 +163,13 @@
 %
 % \renewcommand{\footnoterule}{\vspace{10pt}\hrule width 0mm}
 
-\long\def\@makefntext#1{\@setpar{\@@par\@tempdima \hsize 
+\long\def\@makefntext#1{\@setpar{\@@par\@tempdima \hsize
              \advance\@tempdima-15pt\parshape \@ne 15pt \@tempdima}\par
              \parindent 2em\noindent \hbox to \z@{\hss{\@thefnmark}. \hfil}#1}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                               A B S T R A C T
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% use \begin{abstract} .. \end{abstract} for abstracts.
 \renewenvironment{abstract}
@@ -172,18 +177,18 @@
   \bgroup\leftskip 20pt\rightskip 20pt\small\noindent\ignorespaces}%
 {\par\egroup\vskip 0.25ex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                               KEYWORDS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% use \begin{keywords} .. \end{keywords} for keywordss.
 \newenvironment{keywords}
 {\bgroup\leftskip 20pt\rightskip 20pt \small\noindent{\bf Keywords:} }%
 {\par\egroup\vskip 0.25ex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                        FIRST PAGE, TITLE, AUTHOR
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Author information can be set in various styles:
 % For several authors from the same institution:
@@ -247,20 +252,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Defines the pagestyle for the title page.
-%% Usage: \jmlrheading{1}{1993}{1-15}{8/93}{9/93}{14-115}{Jane Q. Public and A. U. Thor}
-%%        \jmlrheading{vol}{year}{pages}{Submitted date}{published date}{paper id}{authors}
+%% Usage: \jmlrheading{1}{1993}{1-15}{8/93}{9/93}{14-115}
+%%                    {Jane Q. Public and A. U. Thor}
+%%        \jmlrheading{vol}{year}{pages}{Submitted date}{published date}
+%%                    {paper id}{authors}
 %%
-%% If your paper required revisions that were reviewed by the action editor, then indicate
-%%  this by, e.g.
-%%   \jmlrheading{1}{1993}{1-15}{8/93; Revised 10/93}{12/93}{14-115}{Jane Q. Public and A. U. Thor}
+%% If your paper required revisions that were reviewed by the action editor,
+%% then indicate this by, e.g.
+%%   \jmlrheading{1}{1993}{1-15}{8/93; Revised 10/93}{12/93}{14-115}
+%%               {Jane Q. Public and A. U. Thor}
 
 \def\firstpageno#1{\setcounter{page}{#1}}
 
 \def\jmlrheading#1#2#3#4#5#6#7{\def\ps@jmlrtps{\let\@mkboth\@gobbletwo%
-\def\@oddhead{\scriptsize Journal of Machine Learning Research #1 (#2) #3 \hfill Submitted #4; Published #5}%
-\def\@oddfoot{\parbox[t]{\textwidth}{\raggedright \scriptsize \copyright #2 #7.\\[5pt] 
-License: CC-BY 4.0, see \url{https://creativecommons.org/licenses/by/4.0/}. Attribution requirements
-are provided at \url{http://jmlr.org/papers/v#1/#6.html}.\hfill}}%
+\def\@oddhead{\scriptsize Journal of Machine Learning Research #1 (#2) #3
+              \hfill Submitted #4; Published #5}%
+\def\@oddfoot{\parbox[t]{\textwidth}{\raggedright \scriptsize
+                                     \copyright #2 #7.\\[5pt]
+License: CC-BY 4.0, see \url{https://creativecommons.org/licenses/by/4.0/}.
+Attribution requirements are provided at
+\url{http://jmlr.org/papers/v#1/#6.html}.\hfill}}%
 
 \def\@evenhead{}\def\@evenfoot{}}%
 \thispagestyle{jmlrtps}}
@@ -277,9 +288,9 @@ are provided at \url{http://jmlr.org/papers/v#1/#6.html}.\hfill}}%
 \pagestyle{jmlrps}}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                               MISCELLANY
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Define macros for figure captions and table titles
 
@@ -301,7 +312,7 @@ are provided at \url{http://jmlr.org/papers/v#1/#6.html}.\hfill}}%
 %  Allow ``hanging indents'' in long captions
 %
 \long\def\@makecaption#1#2{
-   \vskip 10pt 
+   \vskip 10pt
    \setbox\@tempboxa\hbox{#1: #2}
    \ifdim \wd\@tempboxa >\hsize               % IF longer than one line:
        \begin{list}{#1:}{
@@ -310,7 +321,7 @@ are provided at \url{http://jmlr.org/papers/v#1/#6.html}.\hfill}}%
        \addtolength{\leftmargin}{\labelsep}
         }\item #2 \end{list}\par   % Output in quote mode
      \else                                    %   ELSE  center.
-       \hbox to\hsize{\hfil\box\@tempboxa\hfil}  
+       \hbox to\hsize{\hfil\box\@tempboxa\hfil}
    \fi}
 
 
@@ -335,21 +346,43 @@ are provided at \url{http://jmlr.org/papers/v#1/#6.html}.\hfill}}%
 {\@startsiction{section}{1}{\z@}{-0.24in}{0.10in}
              {\large\bf\raggedright Appendix\ }}}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                               PROOF, THEOREM, and FRIENDS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{etoolbox}
+
+\makeatletter
+\let\nobreakitem\item
+\let\@nobreakitem\@item
+\patchcmd{\nobreakitem}{\@item}{\@nobreakitem}{}{}
+\patchcmd{\nobreakitem}{\@item}{\@nobreakitem}{}{}
+\patchcmd{\@nobreakitem}{\@itempenalty}{\@M}{}{}
+\patchcmd{\@xthm}{\ignorespaces}{\nobreak\ignorespaces}{}{}
+\patchcmd{\@ythm}{\ignorespaces}{\nobreak\ignorespaces}{}{}
+
+\renewtheoremstyle{break}%
+  {\item{\theorem@headerfont
+          ##1\ ##2\theorem@separator}\hskip\labelsep\relax\nobreakitem}%
+  {\item{\theorem@headerfont
+          ##1\ ##2\ (##3)\theorem@separator}\hskip\labelsep\relax\nobreakitem}
+\makeatother
+
+\theoremindent=0cm
+\theoremheaderfont{\kern-0cm\normalfont\bfseries}
+\theorembodyfont{\upshape}
+\theoremstyle{break}
 
 \newcommand{\BlackBox}{\rule{1.5ex}{1.5ex}}  % end of proof
-\newenvironment{proof}{\par\noindent{\bf Proof\ }}{\hfill\BlackBox\\[2mm]}
-\newtheorem{example}{Example} 
+\renewenvironment{proof}{\par\noindent{\bf Proof\ }}{\hfill\BlackBox\\[2mm]}
+\newenvironment{sproof}{\par\noindent{\bf Sketch of the proof\ }}
+               {\hfill\BlackBox\\[2mm]}
+\newtheorem{example}{Example}
 \newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma} 
-\newtheorem{proposition}[theorem]{Proposition} 
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{definition}[theorem]{Definition}
+\newtheorem{definition}{Definition}
 \newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{axiom}[theorem]{Axiom}
-
-
-
+\newtheorem{assumption}[theorem]{Assumption}
