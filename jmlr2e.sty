@@ -42,8 +42,7 @@
 
 \RequirePackage{epsfig}
 \RequirePackage{amsmath}
-\RequirePackage[thmmarks,amsmath,amsthm,thref]{ntheorem}
-
+\RequirePackage{ntheorem}
 \RequirePackage{amssymb}
 \RequirePackage{natbib}
 \RequirePackage{graphicx}
@@ -369,18 +368,20 @@ Attribution requirements are provided at
 
 \theoremindent=0cm
 \theoremheaderfont{\kern-0cm\normalfont\bfseries}
-\theorembodyfont{\upshape}
+\theorembodyfont{\it}
 \theoremstyle{break}
 
 \newcommand{\BlackBox}{\rule{1.5ex}{1.5ex}}  % end of proof
-\renewenvironment{proof}{\par\noindent{\bf Proof\ }}{\hfill\BlackBox\\[2mm]}
+\newenvironment{proof}{\par\noindent{\bf Proof\ }}{\hfill\BlackBox\\[2mm]}
+\newenvironment{sproof}{\par\noindent{\bf Sketch of the proof\ }}
+               {\hfill\BlackBox\\[2mm]}
 \newtheorem{example}{Example}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{definition}{Definition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{axiom}[theorem]{Axiom}
 \newtheorem{assumption}[theorem]{Assumption}
